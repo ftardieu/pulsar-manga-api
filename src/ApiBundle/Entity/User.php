@@ -1,10 +1,11 @@
 <?php
-// src/AppBundle/Entity/User.php
 
-namespace AppBundle\Entity;
+namespace ApiBundle\Entity;
 
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  * @ORM\Entity
@@ -16,8 +17,22 @@ class User extends BaseUser
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
+     * @JMS\Expose
+     * @JMS\Groups({"mini"})
      */
     protected $id;
+
+    /**
+     * @var string
+     *
+     * @Assert\NotBlank()
+     * @Assert\Email()
+     *
+     * @JMS\Expose
+     * @JMS\Groups({"mini"})
+     */
+    protected $email;
 
     public function __construct()
     {

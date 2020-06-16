@@ -71,7 +71,7 @@ swiftmailer:
 fos_user:
     db_driver: orm # other valid values are 'mongodb' and 'couchdb'
     firewall_name: main
-    user_class: AppBundle\Entity\User
+    user_class: ApiBundle\Entity\User
     service:                               # this line
         mailer: fos_user.mailer.twig_swift # this line (from the comment above)
     from_email:
@@ -79,9 +79,13 @@ fos_user:
         sender_name: "%mailer_user%"
 
 fos_rest:
-  param_fetcher_listener: true
-  body_converter:
-    enabled: true
-  view:
-    formats: { json: true, xml: false, rss: false }
-    view_response_listener: true
+    allowed_methods_listener: true
+    routing_loader:
+        default_format: json
+        include_format: false
+    body_listener: true
+    body_converter:
+        enabled: true
+        validate: true
+    view:
+        view_response_listener: 'force'
