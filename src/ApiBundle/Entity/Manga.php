@@ -26,6 +26,8 @@ class Manga
     /**
      * @var string
      *
+     * @ORM\Column(name="title", type="string", nullable=true)
+     *
      * @JMS\Expose
      * @JMS\Groups({"mini"})
      */
@@ -44,12 +46,12 @@ class Manga
     /**
      * @var date
      *
-     * @ORM\Column(name="date_created", type="datetime", nullable=true)
+     * @ORM\Column(name="date_last_chapter_date", type="datetime", nullable=true)
      *
      * @JMS\Expose
      * @JMS\Groups({"mini"})
      */
-    protected $dateCreated;
+    protected $dateLastChapterDate;
 
     /**
      * @var boolean
@@ -80,18 +82,6 @@ class Manga
      * @JMS\Groups({"mini"})
      */
     protected $slug;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="number", type="integer", nullable=true)
-     *
-     * @JMS\Expose
-     * @JMS\Groups({"mini"})
-     */
-    protected $number;
-
-
     /**
      * 
      * @ORM\OneToMany(targetEntity="MangaOrigin", mappedBy="manga")
@@ -101,7 +91,6 @@ class Manga
 
     public function __construct()
     {
-        parent::__construct();
         $this->mangaOrigins = new ArrayCollection();
     }
 
@@ -236,30 +225,6 @@ class Manga
     }
 
     /**
-     * Set number
-     *
-     * @param integer $number
-     *
-     * @return Manga
-     */
-    public function setNumber($number)
-    {
-        $this->number = $number;
-
-        return $this;
-    }
-
-    /**
-     * Get number
-     *
-     * @return integer
-     */
-    public function getNumber()
-    {
-        return $this->number;
-    }
-
-    /**
      * Add mangaOrigin
      *
      * @param \ApiBundle\Entity\MangaOrigin $mangaOrigin
@@ -291,5 +256,53 @@ class Manga
     public function getMangaOrigins()
     {
         return $this->mangaOrigins;
+    }
+
+    /**
+     * Set dateLastChapterDate.
+     *
+     * @param \DateTime|null $dateLastChapterDate
+     *
+     * @return Manga
+     */
+    public function setDateLastChapterDate($dateLastChapterDate = null)
+    {
+        $this->dateLastChapterDate = $dateLastChapterDate;
+
+        return $this;
+    }
+
+    /**
+     * Get dateLastChapterDate.
+     *
+     * @return \DateTime|null
+     */
+    public function getDateLastChapterDate()
+    {
+        return $this->dateLastChapterDate;
+    }
+
+    /**
+     * Set title.
+     *
+     * @param string|null $title
+     *
+     * @return Manga
+     */
+    public function setTitle($title = null)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title.
+     *
+     * @return string|null
+     */
+    public function getTitle()
+    {
+        return $this->title;
     }
 }
